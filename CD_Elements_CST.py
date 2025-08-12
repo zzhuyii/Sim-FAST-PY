@@ -13,7 +13,7 @@ class CD_Elements_CST:
         numCST = self.node_ijk_mat.shape[0]
         for i in range(numCST):
             
-            nodeIndex = self.node_ijk_mat[i]-1
+            nodeIndex = np.array(self.node_ijk_mat[i,:])
             
             n1 = nodeIndex[0]
             n2 = nodeIndex[1]
@@ -37,18 +37,23 @@ class CD_Elements_CST:
             alpha3 = np.arccos(np.dot(vtemp1, vtemp2.T))
             
             alphaVec = np.array([alpha1, alpha2, alpha3])
-            alphaVec = np.squeeze(alphaVec)
+            alphaVec = np.squeeze(alphaVec)          
 
             index = np.argsort(alphaVec)            
             index = np.squeeze(index)
             
-            self.node_ijk_mat[i, 0] = nodeIndex[index[2]]+1
-            self.node_ijk_mat[i, 1] = nodeIndex[index[1]]+1
-            self.node_ijk_mat[i, 2] = nodeIndex[index[0]]+1
+            i1=index[2]
+            i2=index[1]
+            i3=index[0]
+                        
+            self.node_ijk_mat[i, 0] = nodeIndex[i1]
+            self.node_ijk_mat[i, 1] = nodeIndex[i2]
+            self.node_ijk_mat[i, 2] = nodeIndex[i3]            
             
             
     def Potential(self, strainMat, E, v, A, t):
-        strain = np.array([strainMat[0, 0], strainMat[1, 1], strainMat[1, 0] + strainMat[0, 1]])
+        strain = np.array([strainMat[0, 0], strainMat[1, 1], 
+                           strainMat[1, 0] + strainMat[0, 1]])
         
         E=E.item()
         v=v.item()
@@ -147,7 +152,8 @@ class CD_Elements_CST:
             v2 = N3 - N1
             area = np.linalg.norm(np.cross(v1, v2)) / 2
             Flocal[i] = 0.5 / delta * (
-                self.Potential(strainFor, E, v, area, t) - self.Potential(strainBack, E, v, area, t)
+                self.Potential(strainFor, E, v, area, t) - 
+                self.Potential(strainBack, E, v, area, t)
             )
         return Flocal
 
@@ -167,7 +173,8 @@ class CD_Elements_CST:
             tempXback[index2, index1] -= delta
             
             Klocal[i, :] = 0.5 / delta * (
-                self.Solve_Local_Force(tempXfor, X, E, v, t) - self.Solve_Local_Force(tempXback, X, E, v, t)
+                self.Solve_Local_Force(tempXfor, X, E, v, t) - 
+                self.Solve_Local_Force(tempXback, X, E, v, t)
             )
         return Klocal
 
@@ -183,9 +190,9 @@ class CD_Elements_CST:
         
         for i in range(cstNum):
             
-            node1 = cstIJK[i,0]-1
-            node2 = cstIJK[i,1]-1
-            node3 = cstIJK[i,2]-1
+            node1 = cstIJK[i,0]
+            node2 = cstIJK[i,1]
+            node3 = cstIJK[i,2]
             
             X1 = nodalCoordinates[node1]
             X2 = nodalCoordinates[node2]
@@ -218,9 +225,9 @@ class CD_Elements_CST:
         
         for i in range(cstNum):
             
-            node1 = cstIJK[i,0]-1
-            node2 = cstIJK[i,1]-1
-            node3 = cstIJK[i,2]-1
+            node1 = cstIJK[i,0]
+            node2 = cstIJK[i,1]
+            node3 = cstIJK[i,2]
             
             X1 = nodalCoordinates[node1]
             X2 = nodalCoordinates[node2]

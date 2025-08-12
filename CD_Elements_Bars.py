@@ -14,8 +14,8 @@ class CD_Elements_Bars:
 
         for i in range(len(self.A_vec)):
             
-            node1 = coords[self.node_ij_mat[i, 0]-1]
-            node2 = coords[self.node_ij_mat[i, 1]-1]
+            node1 = coords[self.node_ij_mat[i, 0]]
+            node2 = coords[self.node_ij_mat[i, 1]]
  
             self.L0_vec[i] = np.linalg.norm(node1 - node2)
 
@@ -54,8 +54,8 @@ class CD_Elements_Bars:
         Tbar = np.zeros(3 * Nd)
 
         for i in range(Nb):
-            node1 = self.node_ij_mat[i,0]-1
-            node2 = self.node_ij_mat[i,1]-1
+            node1 = self.node_ij_mat[i,0]
+            node2 = self.node_ij_mat[i,1]
             X1 = coords[node1] + U[node1]
             X2 = coords[node2] + U[node2]
             Flocal = self.Solve_Local_Force(X1, X2, self.L0_vec[i], self.E_vec[i], self.A_vec[i])
@@ -70,8 +70,8 @@ class CD_Elements_Bars:
         Kbar = np.zeros((3*Nd, 3*Nd))
 
         for i in range(Nb):
-            node1 = self.node_ij_mat[i,0]-1
-            node2 = self.node_ij_mat[i,1]-1
+            node1 = self.node_ij_mat[i,0]
+            node2 = self.node_ij_mat[i,1]
             X1 = coords[node1] + U[node1]
             X2 = coords[node2] + U[node2]
             Klocal = self.Solve_Local_Stiff(X1, X2, self.L0_vec[i], self.E_vec[i], self.A_vec[i])
@@ -94,8 +94,8 @@ class CD_Elements_Bars:
         Nb = self.node_ij_mat.shape[0]
         strain_vec = np.zeros(Nb)
         for i in range(Nb):
-            node1 = self.node_ij_mat[i,0]-1
-            node2 = self.node_ij_mat[i,1]-1
+            node1 = self.node_ij_mat[i,0]
+            node2 = self.node_ij_mat[i,1]
             X1 = coords[node1] + U[node1]
             X2 = coords[node2] + U[node2]
             strain_vec[i] = (np.linalg.norm(X1 - X2) - self.L0_vec[i]) / self.L0_vec[i]

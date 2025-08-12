@@ -3,20 +3,21 @@ from CD_Elements_Bars import CD_Elements_Bars
 from CD_Elements_CST import CD_Elements_CST
 from CD_Elements_RotSprings_3N import CD_Elements_RotSprings_3N
 from CD_Elements_RotSprings_4N import CD_Elements_RotSprings_4N
+
 from Vec_Elements_Bars import Vec_Elements_Bars
 from Vec_Elements_RotSprings_4N import Vec_Elements_RotSprings_4N
 from Vec_Elements_CST import Vec_Elements_CST
 
 from Assembly_KirigamiTruss import Assembly_KirigamiTruss
-from Plot_KirigamiTruss import Plot_KirigamiTruss
+from AssemblyPlot_KirigamiTruss import Plot_KirigamiTruss
 
 import numpy as np
 
 node=Elements_Nodes()
-bar=Vec_Elements_Bars()
-cst=Vec_Elements_CST()
+bar=CD_Elements_Bars()
+cst=CD_Elements_CST()
 rs3=CD_Elements_RotSprings_3N()
-rs4=Vec_Elements_RotSprings_4N()
+rs4=CD_Elements_RotSprings_4N()
 
 node.coordinates_mat=np.array([[0, 0, 0.0],
                                [0, 1, 1],
@@ -59,8 +60,8 @@ cst.Initialize(node)
 
 #print(Fcst)
 
-rs3.node_ijk_mat=np.array([[1,2,3],
-                           [1,3,4]])
+rs3.node_ijk_mat=np.array([[0,1,2],
+                           [0,2,3]])
 rs3.rot_spr_K_vec=np.array([1,1])
 rs3.Initialize(node)
 [Frs3,Krs3]=rs3.Solve_FK(node, dispMat)

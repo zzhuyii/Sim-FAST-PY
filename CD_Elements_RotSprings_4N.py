@@ -21,10 +21,10 @@ class CD_Elements_RotSprings_4N:
 
         for i in range(numSpr):
             
-            n1 = rotSprIJKL[i,0]-1
-            n2 = rotSprIJKL[i,1]-1
-            n3 = rotSprIJKL[i,2]-1
-            n4 = rotSprIJKL[i,3]-1
+            n1 = rotSprIJKL[i,0]
+            n2 = rotSprIJKL[i,1]
+            n3 = rotSprIJKL[i,2]
+            n4 = rotSprIJKL[i,3]
             
             x1 = node.coordinates_mat[n1]
             x2 = node.coordinates_mat[n2]
@@ -39,15 +39,15 @@ class CD_Elements_RotSprings_4N:
             # Direction check, reordering as in MATLAB
             if norm1[2] != 0:
                 if norm1[2] < 0:
-                    self.node_ijkl_mat[i, 1], self.node_ijkl_mat[i, 2] = n3+1, n2+1
+                    self.node_ijkl_mat[i, 1], self.node_ijkl_mat[i, 2] = n3, n2
                     
             elif norm1[1] != 0:
                 if norm1[1] < 0:
-                    self.node_ijkl_mat[i, 1], self.node_ijkl_mat[i, 2] = n3+1, n2+1
+                    self.node_ijkl_mat[i, 1], self.node_ijkl_mat[i, 2] = n3, n2
                     
             else:
                 if norm1[0] < 0:
-                    self.node_ijkl_mat[i, 1], self.node_ijkl_mat[i, 2] = n3+1, n2+1
+                    self.node_ijkl_mat[i, 1], self.node_ijkl_mat[i, 2] = n3, n2
 
             X = np.vstack([x1, x2, x3, x4])
             self.theta_current_vec[i] = self.Solve_Theta(X)
@@ -125,10 +125,10 @@ class CD_Elements_RotSprings_4N:
         
         for i in range(len(rotSprK)):
             
-            node1 = rotSprIJKL[i,0]-1
-            node2 = rotSprIJKL[i,1]-1
-            node3 = rotSprIJKL[i,2]-1
-            node4 = rotSprIJKL[i,3]-1
+            node1 = rotSprIJKL[i,0]
+            node2 = rotSprIJKL[i,1]
+            node3 = rotSprIJKL[i,2]
+            node4 = rotSprIJKL[i,3]
             
             X1 = nodalCoordinates[node1] + U[node1]
             X2 = nodalCoordinates[node2] + U[node2]
@@ -153,10 +153,10 @@ class CD_Elements_RotSprings_4N:
         
         for i in range(len(rotSprK)):
             
-            node1 = rotSprIJKL[i,0]-1
-            node2 = rotSprIJKL[i,1]-1
-            node3 = rotSprIJKL[i,2]-1
-            node4 = rotSprIJKL[i,3]-1
+            node1 = rotSprIJKL[i,0]
+            node2 = rotSprIJKL[i,1]
+            node3 = rotSprIJKL[i,2]
+            node4 = rotSprIJKL[i,3]
             
             X1 = nodalCoordinates[node1] + U[node1]
             X2 = nodalCoordinates[node2] + U[node2]
@@ -184,10 +184,10 @@ class CD_Elements_RotSprings_4N:
         
         for i in range(len(self.rot_spr_K_vec)):
             
-            node1 = rotSprIJKL[i,0]-1
-            node2 = rotSprIJKL[i,1]-1
-            node3 = rotSprIJKL[i,2]-1
-            node4 = rotSprIJKL[i,3]-1
+            node1 = rotSprIJKL[i,0]
+            node2 = rotSprIJKL[i,1]
+            node3 = rotSprIJKL[i,2]
+            node4 = rotSprIJKL[i,3]
             
             X1 = nodalCoordinates[node1] + U[node1]
             X2 = nodalCoordinates[node2] + U[node2]

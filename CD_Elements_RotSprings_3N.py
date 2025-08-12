@@ -20,9 +20,9 @@ class CD_Elements_RotSprings_3N:
 
         for i in range(numSpr):
             
-            n1 = rotSprIJK[i,0]-1
-            n2 = rotSprIJK[i,1]-1
-            n3 = rotSprIJK[i,2]-1
+            n1 = rotSprIJK[i,0]
+            n2 = rotSprIJK[i,1]
+            n3 = rotSprIJK[i,2]
             
             x1 = node.coordinates_mat[n1]
             x2 = node.coordinates_mat[n2]
@@ -73,9 +73,9 @@ class CD_Elements_RotSprings_3N:
 
         for i in range(rotSprNum):
             
-            node1 = rotSprIJK[i,0]-1
-            node2 = rotSprIJK[i,1]-1
-            node3 = rotSprIJK[i,2]-1
+            node1 = rotSprIJK[i,0]
+            node2 = rotSprIJK[i,1]
+            node3 = rotSprIJK[i,2]
             
             X1 = nodalCoordinates[node1] + U[node1]
             X2 = nodalCoordinates[node2] + U[node2]
@@ -100,7 +100,8 @@ class CD_Elements_RotSprings_3N:
             tempXfor[index2, index1] += delta
             tempXback[index2, index1] -= delta
             Klocal[i, :] = 0.5 / delta * (
-                self.Solve_Local_Force(tempXfor, theta0, K) - self.Solve_Local_Force(tempXback, theta0, K)
+                self.Solve_Local_Force(tempXfor, theta0, K) - 
+                self.Solve_Local_Force(tempXback, theta0, K)
             )
         return Klocal
 
@@ -115,9 +116,9 @@ class CD_Elements_RotSprings_3N:
 
         for i in range(rotSprNum):
             
-            node1 = rotSprIJK[i,0]-1
-            node2 = rotSprIJK[i,1]-1
-            node3 = rotSprIJK[i,2]-1
+            node1 = rotSprIJK[i,0]
+            node2 = rotSprIJK[i,1]
+            node3 = rotSprIJK[i,2]
             
             X1 = nodalCoordinates[node1] + U[node1]
             X2 = nodalCoordinates[node2] + U[node2]
@@ -127,7 +128,8 @@ class CD_Elements_RotSprings_3N:
             nodeIndex = [node1, node2, node3]
             for j in range(3):
                 for k in range(3):
-                    Krs[3*nodeIndex[j]:3*nodeIndex[j]+3, 3*nodeIndex[k]:3*nodeIndex[k]+3] += Klocal[3*j:3*j+3, 3*k:3*k+3]
+                    Krs[3*nodeIndex[j]:3*nodeIndex[j]+3, 
+                        3*nodeIndex[k]:3*nodeIndex[k]+3] += Klocal[3*j:3*j+3, 3*k:3*k+3]
         return Krs
 
     def Solve_FK(self, node, U):
